@@ -21,9 +21,8 @@ fn main() {
         .get_matches();
 
     if env::args().len() == 1 {
-        let stdin = stdin();
-        printHash(sha1(Box::new(stdin)));
-        println!("  -");
+        let hash = sha1(Box::new(stdin()));
+        println!("{}  -", format_hash(hash));
         process::exit(0);
     }
 
@@ -42,7 +41,7 @@ fn main() {
             continue;
         }
 
-        printHash(sha1(Box::new(BufReader::new(file))));
-        println!("  {}", file_name);
+        let hash = sha1(Box::new(BufReader::new(file)));
+        println!("{}  {}", format_hash(hash), file_name);
     }
 }
